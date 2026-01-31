@@ -9,7 +9,6 @@ const SKIP_AUDIO = process.env.VERIFY_SKIP_AUDIO === 'true'
 interface RequestOptions extends RequestInit {
   token?: string
 }
-
 const SAMPLE_AUDIO_BASE64 =
   'UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA='
 
