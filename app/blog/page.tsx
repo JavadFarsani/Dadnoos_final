@@ -14,8 +14,11 @@ export default async function BlogLandingPage() {
 
   return (
     <>
-      <Navbar />
-      <section className="mx-auto max-w-6xl space-y-8 px-4 py-16 md:px-6 md:py-20">
+      <div className='fixed top-0 w-full'>
+        <Navbar />
+      </div>
+
+      <section className="mx-auto max-w-6xl space-y-8 px-4 mt-20 py-16 md:px-6 md:py-20">
         <div className="space-y-2 text-center">
           <p className="text-sm text-neutral-500">دانش حقوقی به زبان ساده</p>
           <h1 className="text-4xl font-black text-neutral-900 dark:text-neutral-100">وبلاگ دادنوس</h1>
@@ -26,6 +29,7 @@ export default async function BlogLandingPage() {
 
         <BlogCards posts={posts} className="md:mt-6" />
       </section>
+
       <Footer />
     </>
   )

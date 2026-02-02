@@ -58,7 +58,7 @@ export function MessageActions({
       className={cn(
         isUser && isLast && "",
         isUser ? "m-2 mb-0" : "-mt-1 px-2",
-        "flex gap-2.5 md:gap-1 text-neutral-700/75 dark:text-neutral-100/75"
+        "flex gap-1.5 text-neutral-700/75 dark:text-neutral-100/75"
       )}
     >
       {baseButtons.map(
@@ -67,7 +67,7 @@ export function MessageActions({
             <Button
               key={i}
               variant="ghost"
-              className="h-7 md:h-9 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
+              className="h-9 md:h-11 aspect-square p-1 rounded-xl flex items-center justify-center disabled:opacity-15"
               onClick={btn.onClick}
               disabled={btn.disabled}
             >

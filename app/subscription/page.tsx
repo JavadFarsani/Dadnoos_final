@@ -204,7 +204,7 @@ export default function SubscriptionPage() {
         ) : (
           <motion.div
             key="subscription"
-            className="relative bg-neutral-200/25 dark:bg-neutral-800/75 backdrop-blur-md w-full max-w-xl rounded-4xl p-6 flex flex-col items-center gap-6 shadow-lg h-screen pb-36 -mb-72"
+            className="relative bg-neutral-200/25 dark:bg-neutral-800/75 backdrop-blur-md w-full max-w-5xl rounded-4xl p-6 flex flex-col items-center gap-6 shadow-lg h-screen pb-36 -mb-72"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
