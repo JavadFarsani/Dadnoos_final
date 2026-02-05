@@ -109,6 +109,15 @@ export interface PlansResponse {
   plans: SubscriptionPlan[]
 }
 
+export interface VoiceLiveChunkResponse {
+  transcript?: string
+  response?: {
+    text: string
+    audio_base64?: string
+    mime_type?: string
+  }
+}
+
 export class ApiError extends Error {
   status: number
   data?: any
@@ -322,7 +331,7 @@ class ApiService {
   }
 
   async sendVoiceLiveChunk(sessionId: string, base64Audio: string, mimeType: string) {
-    return this.request('/api/v1/audio/live', {
+    return this.request<VoiceLiveChunkResponse>('/api/v1/audio/live', {
       method: 'POST',
       body: JSON.stringify({
         action: 'chunk',
