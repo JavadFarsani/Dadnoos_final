@@ -165,7 +165,14 @@ export default function SubscriptionPage() {
     return () => clearInterval(interval)
   }, [showMessage, secondsLeft])
 
-  const { remaining_tokens = 0, token_quota = 0, expires_at = '', started_at = '' } = subscription || {}
+  const {
+    remaining_tokens = 0,
+    token_quota = 0,
+    remaining_messages = 0,
+    message_quota = 0,
+    expires_at = '',
+    started_at = '',
+  } = subscription || {}
 
   const daysTotal = Math.ceil((new Date(expires_at).getTime() - new Date(started_at).getTime()) / (1000 * 60 * 60 * 24))
   const daysRemaining = Math.ceil((new Date(expires_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
@@ -282,6 +289,8 @@ export default function SubscriptionPage() {
                   subscription={subscription}
                   daysRemaining={daysRemaining}
                   remaining_tokens={remaining_tokens}
+                  remaining_messages={remaining_messages}
+                  message_quota={message_quota}
                 />
 
                 <div className="w-full rounded-3xl border border-neutral-200/70 dark:border-neutral-700/60 bg-white/80 dark:bg-neutral-900/40 p-4 space-y-4">

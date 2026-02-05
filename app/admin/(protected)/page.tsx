@@ -23,7 +23,8 @@ export const metadata = {
 export default async function AdminDashboardPage({ searchParams }: DashboardProps) {
   const range = parseRange(searchParams?.range)
   const overview = await getDashboardOverview({ range })
-  const last30Label = formatNumber(overview.metrics.tokens.last30Days)
+  const rangeLabelText = overview.range.label === '7d' ? '۷ روز' : '۳۰ روز'
+  const messagesLast30Label = formatNumber(overview.metrics.messagesUsage.last30Days)
 
   return (
     <section className="space-y-8">
@@ -56,14 +57,13 @@ export default async function AdminDashboardPage({ searchParams }: DashboardProp
         <KpiCard label="تعداد گفتگوها" value={overview.metrics.conversations} description="مجموع جلسات ایجاد شده" />
         <KpiCard label="پیام‌های مبادله‌شده" value={overview.metrics.messages} description="کل پیام‌ها" />
         <KpiCard
-          label={`مصرف توکن (${overview.range.label === '7d' ? '۷ روز' : '۳۰ روز'})`}
-          value={overview.metrics.tokens.rangeTotal}
-          description={`۳۰ روز اخیر: ${last30Label}`}
+          label={`پیام‌های ارسال‌شده (${rangeLabelText})`}
+          value={overview.metrics.messagesUsage.rangeTotal}
+          description={`۳۰ روز اخیر: ${messagesLast30Label}`}
         />
       </div>
 
       <DashboardCharts
-        tokensPerDay={overview.charts.tokensPerDay}
         messagesPerDay={overview.charts.messagesPerDay}
         topUsers={overview.charts.topUsers}
         moduleDistribution={overview.charts.moduleDistribution}

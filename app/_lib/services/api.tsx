@@ -47,6 +47,7 @@ export interface SubscriptionPlan {
   title: string
   duration_days: number
   token_quota: number
+  message_quota?: number
   is_organizational: boolean
   price_cents?: number
 }
@@ -71,6 +72,9 @@ export interface UserSubscription {
   token_quota: number
   tokens_used: number
   remaining_tokens: number
+  message_quota?: number
+  messages_used?: number
+  remaining_messages?: number
   started_at: string
   expires_at: string
   active: boolean

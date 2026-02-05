@@ -23,18 +23,25 @@ const PLAN_METADATA: Record<
   monthly: {
     code: 'PLAN_MONTHLY',
     label: 'اشتراک یک‌ماهه',
-    features: ['فعال به‌مدت ۳۰ روز', 'سقف ۳۰۰ هزار توکن', 'پشتیبانی سریع'],
+    features: ['فعال به‌مدت ۳۰ روز', 'سقف ۳۰۰ پیام', 'پشتیبانی سریع'],
   },
   semiannual: {
     code: 'PLAN_SEMI_ANNUAL',
     label: 'اشتراک شش‌ماهه',
-    features: ['اعتبار ۱۸۰ روزه', 'سقف ۱.۸ میلیون توکن', 'صرفه‌جویی ۲۰٪'],
+    features: ['اعتبار ۱۸۰ روزه', 'سقف ۲٬۰۰۰ پیام', 'صرفه‌جویی ۲۰٪'],
   },
   yearly: {
     code: 'PLAN_YEARLY',
     label: 'اشتراک یک‌ساله',
-    features: ['اعتبار ۳۶۵ روزه', '۳.۶ میلیون توکن', 'صرفه‌جویی ۴۰٪'],
+    features: ['اعتبار ۳۶۵ روزه', 'سقف ۵٬۰۰۰ پیام', 'صرفه‌جویی ۴۰٪'],
   },
+}
+
+const PLAN_MESSAGE_LIMITS: Record<string, number> = {
+  FREE: 15,
+  PLAN_MONTHLY: 300,
+  PLAN_SEMI_ANNUAL: 2000,
+  PLAN_YEARLY: 5000,
 }
 
 const formatCurrency = (value: number) =>
@@ -113,6 +120,8 @@ export default function PaymentPage({ params }: { params: Promise<{ plan: string
 
   const planTitle = planRecord?.title ?? planMeta?.label ?? 'پلن انتخابی'
   const planPrice = planRecord?.price_cents ?? 0
+  const fallbackMessageLimit = planMeta?.code ? PLAN_MESSAGE_LIMITS[planMeta.code] : undefined
+  const planMessageLimit = planRecord?.message_quota ?? fallbackMessageLimit ?? 0
 
   const upgradeCredit = billing?.subscription?.plan_price_cents ?? 0
   const isDowngrade = Boolean(billing?.subscription && planPrice <= upgradeCredit)
@@ -218,6 +227,21 @@ export default function PaymentPage({ params }: { params: Promise<{ plan: string
                 <span>مبلغ قابل پرداخت</span>
                 <strong>{formatCurrency(amountDue)}</strong>
               </div>
+              {planMessageLimit > 0 && (
+                <div className="flex items-center justify-between">
+                  <span>سقف پیام‌های این پلن</span>
+                  <strong>{formatCount(planMessageLimit)} پیام</strong>
+                </div>
+              )}
+              {billing?.subscription?.message_quota ? (
+                <div className="flex items-center justify-between">
+                  <span>مصرف فعلی پیام</span>
+                  <strong>
+                    {formatCount(billing.subscription.messages_used ?? 0)} /{' '}
+                    {formatCount(billing.subscription.message_quota ?? 0)} پیام
+                  </strong>
+                </div>
+              ) : null}
               {billing?.subscription?.expires_at && (
                 <div className="flex items-center justify-between">
                   <span>انقضای پلن فعلی</span>
