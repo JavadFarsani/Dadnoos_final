@@ -45,7 +45,7 @@ export default function TermsPopup({ onAccept, visible }: TermsPopupProps) {
             {ripplePosition && (
               <motion.div
                 key={`${ripplePosition.x}-${ripplePosition.y}`}
-                initial={{ scale: 0, opacity: 0.4 }}
+                initial={{ scale: 0, opacity: 0.15 }}
                 animate={{ scale: 10, opacity: 0 }}
                 transition={{ duration: 0.75, ease: "easeOut" }}
                 className="absolute z-10 size-40 rounded-full bg-[#9b956d] pointer-events-none"
@@ -62,7 +62,7 @@ export default function TermsPopup({ onAccept, visible }: TermsPopupProps) {
           <motion.div
             ref={cardRef}
             initial={{ y: "100%" }}
-            animate={{ y: shake ? 140 : 125 }}
+            animate={{ y: shake ? 135 : 115 }}
             exit={{ y: "100%" }}
             transition={{
               type: "spring",
@@ -74,7 +74,7 @@ export default function TermsPopup({ onAccept, visible }: TermsPopupProps) {
             }}
             drag={dragEnabled ? "y" : false}
             dragElastic={.05}
-            dragConstraints={dragEnabled ? { top: 125, bottom: 125 } : undefined}
+            dragConstraints={dragEnabled ? { top: 115, bottom: 115 } : undefined}
             className="relative text-center bg-white dark:bg-[#303030] rounded-t-4xl max-w-lg w-full pt-16 lg:pt-20 px-8 pb-40 shadow-2xl z-20"
           >
             <div className="absolute top-1.5 right-1/2 translate-1/2 h-1.5 w-[10%] rounded-full bg-neutral-400/25" />

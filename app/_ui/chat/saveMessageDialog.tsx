@@ -59,7 +59,7 @@ export function SaveMessageDialog({
 
   return (
     <Popup visible={isOpen} onClose={onClose}>
-      <div className="space-y-4" dir="rtl">
+      <div className="space-y-4 p-1 -mb-6" dir="rtl">
         <div>
           <h2 className="text-lg font-semibold">ذخیره پیام در پرونده</h2>
           <p className="text-xs text-neutral-500 mt-1">

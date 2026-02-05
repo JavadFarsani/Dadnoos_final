@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Download, FileText, FolderPlus, FolderOpen, MinusCircle, Trash2 } from 'lucide-react'
+import { Download, FileText, FolderPlus, FolderOpen, MinusCircle, Trash2, X } from 'lucide-react'
 import Popup from '@/app/_ui/components/popup'
 import { Button } from '@/app/_ui/components/button'
 import { Input } from '@/app/_ui/components/input'
@@ -123,15 +123,15 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
   return (
     <Popup visible={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-4" dir="rtl">
-        <div className="flex items-center justify-between border-b pb-3 mb-1">
+        <div className="flex items-center justify-between border-b border-gray-400/25 pb-3 ps-2 mb-1">
           <div>
             <p className="text-lg font-semibold">فایل‌های ذخیره‌شده</p>
             <p className="text-xs text-neutral-500">
               پیام‌های AI را به فرمت Word دانلود کنید.
             </p>
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose}>
-            بستن
+          <Button variant="ghost" size="icon" onClick={onClose}>
+            <X className='size-5' />
           </Button>
         </div>
 
@@ -143,7 +143,6 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
                 {cases.length > 0 ? `${cases.length} پرونده فعال` : 'پرونده‌ای ثبت نشده'}
               </p>
             </div>
-            <FolderPlus className="text-[#9b956d]" size={24} />
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Input
@@ -213,7 +212,8 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
           )}
         </div>
 
-        <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/40 p-4">
+        <div>
+          {/* <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/40 p-4"> */}
           {emptyState ? (
             <div className="rounded-3xl border border-dashed border-neutral-300 dark:border-neutral-600 px-6 py-10 text-center text-sm text-neutral-500">
               هنوز پیامی ذخیره نشده است. روی آیکون ذخیره پیام هوش مصنوعی بزنید تا در اینجا ببینید.

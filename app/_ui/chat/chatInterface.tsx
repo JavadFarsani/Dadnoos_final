@@ -298,7 +298,7 @@ export default function ChatInterface({
           </div>
 
           {/* Chat Input Bar */}
-          <footer className='sticky bottom-0 w-full z-10 px-2'>
+          <footer className='fixed bottom-0 w-full z-10 px-2'>
             {/* Suggested Prompts or Queued Prompts */}
             <AnimatePresence>
               {(hasQueuedPrompts || (messages.length === 0 && inputValue.trim() === "")) && (

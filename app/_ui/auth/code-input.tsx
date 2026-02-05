@@ -172,7 +172,7 @@ export default function InputVerificationCode({
         <div className="px-6 sm:px-12">
           <form className="space-y-6 text-center" onSubmit={(e) => e.preventDefault()}>
             <div
-              className={cn(hasError ? 'shake' : '', "my-4 flex justify-between gap-2")}
+              className={cn(hasError ? 'shake' : '', "my-4 flex justify-between gap-2.5")}
               dir="ltr"
             >
               {otp.map((digit, index) => (
@@ -191,7 +191,7 @@ export default function InputVerificationCode({
                           ? 'border-red-600'
                           : 'border-neutral-500 dark:border-neutral-300'
                       : 'border-neutral-500 dark:border-neutral-300',
-                    "w-full aspect-square text-center text-md border rounded-lg bg-transparent transition-colors focus:outline-none"
+                    "w-full aspect-square text-center text-base border rounded-2xl bg-transparent transition-colors focus:outline-none"
                   )}
                   maxLength={1}
                   disabled={isSubmitting}

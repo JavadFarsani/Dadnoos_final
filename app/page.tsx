@@ -117,7 +117,13 @@ export default function Home() {
           </ol>
 
           <div className="flex items-center gap-4">
-            <PWAIphoneGuide />
+            {/* <PWAIphoneGuide /> */}
+            <Link
+              href="/pricing"
+              className="rounded-full whitespace-nowrap border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] active:bg-[#383838] dark:active:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto cursor-pointer"
+            >
+              خرید اشتراک
+            </Link>
 
             <Link
               href="/about"

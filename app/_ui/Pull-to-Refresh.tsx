@@ -11,6 +11,7 @@ interface PullToRefreshLayoutProps {
 export default function PullToRefreshLayout({ children }: PullToRefreshLayoutProps) {
   const [pullStartY, setPullStartY] = useState<number | null>(null)
   const [pullDistance, setPullDistance] = useState<number>(0)
+  const [isPWA, setIsPWA] = useState<boolean>(false)
 
   // const router = useRouter()
 
@@ -18,6 +19,14 @@ export default function PullToRefreshLayout({ children }: PullToRefreshLayoutPro
   const maxVisualPull = 125
 
   useEffect(() => {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    const isIOSStandalone = (window.navigator as any).standalone === true
+    setIsPWA(isStandalone || isIOSStandalone)
+  }, [])
+
+  useEffect(() => {
+    if (!isPWA) return
+
     const handleTouchStart = (e: TouchEvent) => {
       const oneFifthViewport = window.innerHeight / 5
       const touch = e.touches[0]
@@ -65,10 +74,12 @@ export default function PullToRefreshLayout({ children }: PullToRefreshLayoutPro
       window.removeEventListener("touchmove", handleTouchMove)
       window.removeEventListener("touchend", handleTouchEnd)
     }
-  }, [pullStartY, pullDistance])
+  }, [isPWA, pullStartY, pullDistance])
+
+  if (!isPWA) return <>{children}</>
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative">
       {/* <div
         style={{
           position: "absolute",

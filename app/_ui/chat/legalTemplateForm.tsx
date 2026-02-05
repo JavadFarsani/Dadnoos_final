@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -58,18 +57,18 @@ export function LegalTemplateForm({ template, isOpen, onClose, onSubmit }: Legal
   }
 
   return (
-    <Popup visible={isOpen} onClose={onClose}>
-      <div className="max-w-xl w-full -mb-4">
+    <Popup visible={isOpen} onClose={onClose} disableDrag={true}>
+      <div className="max-w-xl w-full -mb-8">
         <h2 className="text-lg font-bold text-center mt-4">{template.title}</h2>
         <p className="text-sm text-center text-neutral-500 mt-1">{template.description}</p>
 
         <Form {...form}>
-          <p className="text-center text-xs text-neutral-300 dark:text-neutral-500 mt-4">
+          <p className="text-center text-xs text-neutral-300 dark:text-neutral-500 my-2">
             تکمیل این بخش ها اختیاری است و تکمیل آن ها به تولید پاسخ بهتر کمک می‌کند.
           </p>
 
           <form onSubmit={form.handleSubmit(handleFormSubmit)} dir="rtl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[55vh] overflow-y-auto scrollbar pl-4 pr-3 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[45vh] overflow-y-auto scrollbar pl-4 pr-3 py-4">
               {template.fields.map((field) => (
                 <FormField
                   key={field.name}

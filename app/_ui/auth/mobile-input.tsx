@@ -54,7 +54,7 @@ export default function PhoneInput({
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md px-4 mt-4">
         <div className="px-6 py-10 rounded-md sm:px-12 h-32">
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             <div className="relative">
               <input
                 id="mobile"
@@ -94,17 +94,9 @@ export default function PhoneInput({
               </label>
             </div>
 
-            <div className='fixed bottom-4 right-1/2 translate-x-1/2 w-full mx-auto sm:max-w-sm px-8 pb-safe'>
-              <div className="mb-3 min-h-[1.25rem]">
-                {errorMessage && (
-                  <p className="text-xs text-red-600 text-center">
-                    {errorMessage}
-                  </p>
-                )}
-              </div>
-
+            <div className='mx-auto sm:max-w-sm'>
               <button
-                className="flex items-center justify-center w-full h-12 mb-safe font-medium bg-black dark:bg-white text-white dark:text-black py-2.5 rounded-2xl hover:bg-black/75 active:bg-black/75 disabled:bg-black/15 dark:hover:bg-white/75 dark:active:bg-white/75 dark:disabled:bg-white/15 transition-opacity cursor-pointer disabled:cursor-auto"
+                className="flex items-center justify-center w-full h-12 font-medium bg-black dark:bg-white text-white dark:text-black py-2.5 rounded-2xl hover:bg-black/75 active:bg-black/75 disabled:bg-black/15 dark:hover:bg-white/75 dark:active:bg-white/75 dark:disabled:bg-white/15 transition-all cursor-pointer disabled:cursor-auto"
                 type="submit"
                 onClick={handleFormSubmit}
                 disabled={isPending || !validateIranPhone(mobile)}
@@ -146,6 +138,14 @@ export default function PhoneInput({
                 ) : texts.sendVerificationCodeText
                 }
               </button>
+
+              <div className="my-3 min-h-[1.25rem]">
+                {errorMessage && (
+                  <p className="text-xs text-red-600 text-center">
+                    {errorMessage}
+                  </p>
+                )}
+              </div>
             </div>
           </form>
         </div>

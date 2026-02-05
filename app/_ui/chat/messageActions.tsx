@@ -55,8 +55,8 @@ export function MessageActions({
     : [
       { icon: copied ? Check : Copy, onClick: onCopy, disabled: disabledCopy },
       { icon: Save, onClick: onSave, disabled: disabledSave },
-      { icon: ThumbsDown, onClick: onThumbsDown, disabled: disabledThumbsDown },
-      { icon: ThumbsUp, onClick: onThumbsUp, disabled: disabledThumbsUp },
+      // { icon: ThumbsDown, onClick: onThumbsDown, disabled: disabledThumbsDown },
+      // { icon: ThumbsUp, onClick: onThumbsUp, disabled: disabledThumbsUp },
     ]
 
   return (
@@ -65,14 +65,29 @@ export function MessageActions({
       animate={{ opacity: 1, transition: { delay: 0.4, duration: 0.4 } }}
       className={cn(
         isUser && isLast && "",
-        isUser ? "m-2 mb-0" : "-mt-1 px-2",
-        "flex gap-2.5 md:gap-1 text-neutral-700/75 dark:text-neutral-100/75"
+        isUser ? "m-2 mb-0" : "-mt-2 px-2",
+        "flex gap-1 text-neutral-700/75 dark:text-neutral-100/75"
       )}
     >
+      {baseButtons.map(
+        (btn, i) =>
+          btn.onClick && (
+            <Button
+              key={i}
+              variant="ghost"
+              className="h-10 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
+              onClick={btn.onClick}
+              disabled={btn.disabled}
+            >
+              <btn.icon className="size-5" />
+            </Button>
+          )
+      )}
+
       {onPlayAudio && (
         <Button
           variant="ghost"
-          className="h-7 md:h-9 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
+          className="h-10 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
           onClick={onPlayAudio}
           disabled={audioDisabled || audioLoading}
         >
@@ -84,20 +99,6 @@ export function MessageActions({
             <AudioLines className="size-5" />
           )}
         </Button>
-      )}
-      {baseButtons.map(
-        (btn, i) =>
-          btn.onClick && (
-            <Button
-              key={i}
-              variant="ghost"
-              className="h-7 md:h-9 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
-              onClick={btn.onClick}
-              disabled={btn.disabled}
-            >
-              <btn.icon className="size-5" />
-            </Button>
-          )
       )}
     </motion.div>
   )

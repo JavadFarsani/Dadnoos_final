@@ -4,6 +4,7 @@ import { useState, ReactNode, useEffect } from "react"
 import { usePathname } from "next/navigation"
 
 import SplashScreen from "@/app/_ui/splashScreen"
+import InstallPopup from "@/app/_ui/InstallPopup"
 import TermsPopup from "@/app/_ui/termsPopup"
 
 type RootLayoutProps = {
@@ -11,17 +12,23 @@ type RootLayoutProps = {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [showTerms, setShowTerms] = useState<boolean>(false)
-  const [showSplash, setShowSplash] = useState<boolean>(true)
-  const [checkedPWA, setCheckedPWA] = useState<boolean>(false)
-
   const pathname = usePathname()
 
+  const [showSplash, setShowSplash] = useState(true)
+  const [showTerms, setShowTerms] = useState(false)
+  const [showInstall, setShowInstall] = useState(false)
+
+  const [checkedPWA, setCheckedPWA] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+
   useEffect(() => {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches
+    const isPWA =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as any).standalone
+
     setCheckedPWA(true)
 
-    const meta = document.querySelector('meta[name="viewport"]');
+    const meta = document.querySelector('meta[name="viewport"]')
     if (!meta) return
 
     meta.setAttribute(
@@ -45,27 +52,80 @@ export default function RootLayout({ children }: RootLayoutProps) {
   }, [])
 
   useEffect(() => {
-    setShowTerms(false)
     const accepted = localStorage.getItem('termsAccepted')
-    if (!accepted) setShowTerms(true)
+    setShowTerms(!accepted)
   }, [pathname])
+
+  useEffect(() => {
+    const isInstalled =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as any).standalone
+
+    if (isInstalled) return
+
+    const skipped = localStorage.getItem('installSkipped')
+    if (skipped) return
+
+    const handler = (e: any) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+    }
+
+    window.addEventListener('beforeinstallprompt', handler)
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler)
+    }
+  }, [])
 
   const handleAcceptTerms = () => {
     localStorage.setItem('termsAccepted', 'true')
     setShowTerms(false)
+
+    if (deferredPrompt) {
+      setTimeout(() => {
+        setShowInstall(true)
+      }, 400)
+    }
   }
 
-  if (checkedPWA) {
-    return showSplash ? (
-      <SplashScreen onFinish={() => setShowSplash(false)} />
-    ) : (
-      <>
-        <TermsPopup
-          visible={showTerms}
-          onAccept={handleAcceptTerms}
-        />
-        {children}
-      </>
-    )
+  const handleInstall = async () => {
+    if (!deferredPrompt) return
+
+    deferredPrompt.prompt()
+    const result = await deferredPrompt.userChoice
+
+    setDeferredPrompt(null)
+    setShowInstall(false)
+
+    if (result.outcome === 'dismissed') {
+      localStorage.setItem('installSkipped', 'true')
+    }
   }
+
+  const handleSkipInstall = () => {
+    localStorage.setItem('installSkipped', 'true')
+    setShowInstall(false)
+  }
+
+  if (!checkedPWA) return null
+
+  return showSplash ? (
+    <SplashScreen onFinish={() => setShowSplash(false)} />
+  ) : (
+    <>
+      <TermsPopup
+        visible={showTerms}
+        onAccept={handleAcceptTerms}
+      />
+
+      <InstallPopup
+        visible={showInstall}
+        onInstall={handleInstall}
+        onSkip={handleSkipInstall}
+      />
+
+      {children}
+    </>
+  )
 }

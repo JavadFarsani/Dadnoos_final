@@ -27,7 +27,7 @@ export function UploadPanel({
   const imageInputRef = useRef<HTMLInputElement | null>(null)
   const cameraInputRef = useRef<HTMLInputElement | null>(null)
 
-  const defaultGallery = Array.from({ length: 30 }, (_, i) => `https://picsum.photos/id/${0 + i}/600/600`)
+  // const defaultGallery = Array.from({ length: 30 }, (_, i) => `https://picsum.photos/id/${0 + i}/600/600`)
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -89,7 +89,7 @@ export function UploadPanel({
             <motion.div
               className="relative w-full h-screen max-w-3xl bg-white dark:bg-[#303030] rounded-t-4xl pt-8 px-5 pb-24 grid z-[9999]"
               initial={{ y: "100%" }}
-              animate={{ y: expanded ? 625 : 220 }}
+              animate={{ y: expanded ? 600 : 220 }}
               exit={{ y: "100%", transition: { duration: 0.2, type: 'tween' } }}
               transition={{
                 type: "spring",
@@ -98,7 +98,7 @@ export function UploadPanel({
               }}
               drag="y"
               dragElastic={.15}
-              dragConstraints={expanded ? { top: 625, bottom: 625 } : { top: 220, bottom: 220 }}
+              dragConstraints={expanded ? { top: 600, bottom: 600 } : { top: 220, bottom: 220 }}
               onDragEnd={(e, info) => {
                 if (info.offset.y > 50) {
                   setExpanded(true)
@@ -156,7 +156,7 @@ export function UploadPanel({
                   "w-full h-3/4 mt-1.5 overflow-y-auto transition-all duration-400 rounded-3xl overscroll-none"
                 )}
               >
-                <div className='grid grid-cols-3 gap-1 z-30'>
+                {/* <div className='grid grid-cols-3 gap-1 z-30'>
                   {defaultGallery.map((src, index) => (
                     <div className='w-full aspect-square' key={index}>
                       <img
@@ -170,7 +170,7 @@ export function UploadPanel({
                       />
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
 
               {/* hidden inputs */}
