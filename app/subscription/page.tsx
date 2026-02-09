@@ -19,6 +19,7 @@ import { useUserStore } from "@/app/_lib/hooks/store"
 
 import { Button } from "@/app/_ui/components/button"
 import SubscriptionGrid from "@/app/_ui/pricing/SubscriptionGrid"
+import BackButton from "../_ui/back-button"
 
 export default function SubscriptionPage() {
   const router = useRouter()
@@ -135,7 +136,7 @@ export default function SubscriptionPage() {
   const daysRemaining = Math.ceil((new Date(expires_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
 
   return (
-    <div className="relative h-screen overflow-x-hidden overflow-y-auto flex flex-col items-center justify-between bg-black text-white">
+    <div className="relative h-screen overflow-hidden flex flex-col items-center justify-between bg-black text-white">
       <Image
         className={cn(
           loading && "animate-pulse",
@@ -148,7 +149,7 @@ export default function SubscriptionPage() {
         alt=""
       />
 
-      <div className="absolute top-1 left-1 md:top-8 md:left-10 mt-safe z-40">
+      <div className="absolute top-0 left-2 md:top-8 md:left-10 mt-safe z-40">
         <Button
           variant="ghost"
           onClick={() => router.back()}
@@ -158,7 +159,7 @@ export default function SubscriptionPage() {
         </Button>
       </div>
 
-      <div className="absolute size-12 md:size-16 p-2 top-1 right-1 md:top-8 md:right-10 mt-safe">
+      <div className="absolute size-12 md:size-16 p-2 top-0 right-2 md:top-8 md:right-10 mt-safe">
         <Image
           className="size-full"
           src="/logo-white.png"
@@ -169,7 +170,7 @@ export default function SubscriptionPage() {
         />
       </div>
 
-      <h1 className="text-3xl md:text-6xl font-black mb-5 pt-3 md:pt-8 z-40 mt-safe">اشتراک شما</h1>
+      <h1 className="text-3xl md:text-5xl font-black mb-5 pt-1.5 md:pt-8 z-40 mt-safe">اشتراک شما</h1>
 
       <motion.div className="fixed top-24 h-10 mt-safe md:mt-16">
         <motion.p
@@ -213,7 +214,7 @@ export default function SubscriptionPage() {
         ) : (
           <motion.div
             key="subscription"
-            className="relative bg-neutral-200/25 dark:bg-neutral-800/75 backdrop-blur-md w-full max-w-xl rounded-4xl p-6 flex flex-col items-center gap-5 shadow-lg h-[75vh]"
+            className="relative bg-neutral-200/25 dark:bg-neutral-800/75 backdrop-blur-md w-full max-w-xl rounded-4xl md:rounded-b-none p-6 flex flex-col items-center gap-5 shadow-lg h-[75vh] -mb-16"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}

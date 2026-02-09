@@ -132,7 +132,7 @@ export function SaveMessageDialog({
           </div>
         </div>
 
-        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 md:mb-3">
           <Button variant="outline" onClick={onClose}>
             انصراف
           </Button>
@@ -146,7 +146,7 @@ export function SaveMessageDialog({
             }}
             disabled={!title.trim() && !messageText.trim()}
           >
-            ذخیره در فایل‌منیجر
+            ذخیره در مدیریت پرونده
           </Button>
         </div>
       </div>

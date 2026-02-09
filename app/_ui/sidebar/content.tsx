@@ -1,22 +1,17 @@
 import {
   ChevronDown,
-  ChevronLeft,
   FileText,
   FileUp,
   FolderOpen,
   Gavel,
   Handshake,
-  HardDriveDownload,
   ImageUp,
   LibraryBig,
-  LogOut,
+  MessageCircleDashed,
   NotebookText,
   Scale,
   School,
-  Settings,
-  SquarePen,
   UserRoundPen,
-  Users,
   UsersRound
 } from "lucide-react"
 
@@ -57,7 +52,6 @@ import {
 import { LegalTemplate, LegalTemplateForm } from "@/app/_ui/chat/legalTemplateForm"
 import { Conversation } from "@/app/_lib/services/api"
 
-import { useRouter } from "next/navigation"
 import { useUserStore } from "@/app/_lib/hooks/store"
 import { RefObject, useEffect, useRef, useState } from "react"
 
@@ -70,6 +64,7 @@ import RecentChats from "@/app/_ui/sidebar/recentChats"
 import Image from "next/image"
 import Link from "next/link"
 import { useSavedMessagesStore } from "@/app/_lib/hooks/useSavedMessages"
+import Setting from "./setting"
 
 interface SidebarProps {
   isMobile: boolean
@@ -176,10 +171,10 @@ export default function SidebarContent({
   handleContractUpload,
   onOpenFileManager,
 }: SidebarProps) {
-  const router = useRouter()
   const user = useUserStore((state) => state.user)
   const [analysisType, setAnalysisType] = useState<'contract' | 'document'>('contract')
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolledEnd, setIsScrolledEnd] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -187,7 +182,17 @@ export default function SidebarContent({
     if (!el) return
 
     const handleScroll = () => {
-      setIsScrolled(el.scrollTop > 5)
+      const { scrollTop, scrollHeight, clientHeight } = el
+
+      const END_OFFSET = 5
+
+      setIsScrolled(scrollTop > END_OFFSET)
+
+      const maxScrollTop = scrollHeight - clientHeight
+
+      setIsScrolledEnd(
+        scrollTop >= maxScrollTop - END_OFFSET
+      )
     }
 
     el.addEventListener("scroll", handleScroll)
@@ -249,7 +254,7 @@ export default function SidebarContent({
                   handleNewChatClick()
                 }}
               >
-                <SquarePen className="size-6" />
+                <MessageCircleDashed className="size-6" />
               </button>
             </div>
 
@@ -263,7 +268,7 @@ export default function SidebarContent({
                 handleNewChatClick()
               }}
             >
-              <SquarePen className="size-6" />
+              <MessageCircleDashed className="size-6" />
               <span className="mb-0.5">
                 پرسش و پاسخ جدید
               </span>
@@ -309,7 +314,6 @@ export default function SidebarContent({
                   </span>
                 </div>
               </div>
-              <HardDriveDownload className="size-5 text-neutral-500" />
             </Button>
           </div>
 
@@ -509,46 +513,6 @@ export default function SidebarContent({
             </div>
           </div>
         </div>
-
-        <div className="mb-safe pb-4 px-2 mt-10">
-          <div className="flex items-center gap-x-2 my-3 px-3 text-neutral-600 dark:text-neutral-400">
-            <Settings className="size-6" />
-            <h3>تنظیمات</h3>
-          </div>
-
-          <div>
-            <Button onClick={() => router.push(!user?.id ? '/pricing' : '/subscription')} variant="ghost" className="group w-full border-0 justify-between pr-3 pl-2 h-auto">
-              {!user?.id ? "خرید اشتراک" : "اشتراک"}
-              <ChevronLeft className="size-5 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-75" />
-            </Button>
-            {user?.id &&
-              <Button onClick={() => router.push('/payment/history')} variant="ghost" className="group w-full border-0 justify-between pr-3 pl-2 h-auto">
-                تاریخچه تراکنش‌ها
-                <ChevronLeft className="size-5 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-75" />
-              </Button>
-            }
-            <Button onClick={() => router.push('/dananoos-vs-chatgpt')} variant="ghost" className="group w-full border-0 justify-between pr-3 pl-2 h-auto">
-              فرق دادنوس با Chatgpt
-              <ChevronLeft className="size-5 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-75" />
-            </Button>
-            <Button onClick={toggleContactModal} variant="ghost" className="group w-full border-0 justify-between pr-3 pl-2 h-auto">
-              تماس با ما
-              <ChevronLeft className="size-5 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-75" />
-            </Button>
-            {user.id &&
-              <Button
-                variant="ghost"
-                onClick={onClickLogout}
-                className="group w-full border-0 justify-between pr-3 pl-2 h-auto text-red-600/75"
-              >
-                <span className="font-semibold">
-                  خروج
-                </span>
-                <LogOut className="size-5 transition-all group-hover:-rotate-180" />
-              </Button>
-            }
-          </div>
-        </div>
       </div>
 
       {selectedTemplate && (
@@ -574,6 +538,13 @@ export default function SidebarContent({
       <ContactModal
         isOpen={isOpenContactModal}
         onClose={toggleContactModal}
+      />
+
+      <Setting
+        user={user}
+        isScrolledEnd={isScrolledEnd}
+        onClickLogout={onClickLogout}
+        toggleContactModal={toggleContactModal}
       />
     </>
   )

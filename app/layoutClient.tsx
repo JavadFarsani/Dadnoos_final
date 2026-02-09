@@ -1,31 +1,26 @@
 'use client'
 
 import { useState, ReactNode, useEffect } from "react"
-import { usePathname } from "next/navigation"
-
 import SplashScreen from "@/app/_ui/splashScreen"
 import InstallPopup from "@/app/_ui/InstallPopup"
-import TermsPopup from "@/app/_ui/termsPopup"
 
 type RootLayoutProps = {
   children: ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
-  const pathname = usePathname()
+const isPWAInstalled = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  (window.navigator as any).standalone === true
 
+export default function RootLayout({ children }: RootLayoutProps) {
   const [showSplash, setShowSplash] = useState(true)
-  const [showTerms, setShowTerms] = useState(false)
   const [showInstall, setShowInstall] = useState(false)
 
   const [checkedPWA, setCheckedPWA] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 
   useEffect(() => {
-    const isPWA =
-      window.matchMedia('(display-mode: standalone)').matches ||
-      (window.navigator as any).standalone
-
+    const installed = isPWAInstalled()
     setCheckedPWA(true)
 
     const meta = document.querySelector('meta[name="viewport"]')
@@ -33,35 +28,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
     meta.setAttribute(
       'content',
-      `width=device-width, initial-scale=1, viewport-fit=${isPWA ? 'cover' : 'auto'}`
+      `width=device-width, initial-scale=1, viewport-fit=${installed ? 'cover' : 'auto'
+      }`
     )
   }, [])
 
   useEffect(() => {
-    const setVh = () => {
-      document.documentElement.style.setProperty(
-        '--vh',
-        `${window.innerHeight * 0.01}px`
-      )
-    }
-
-    setVh()
-    window.addEventListener('resize', setVh)
-
-    return () => window.removeEventListener('resize', setVh)
-  }, [])
-
-  useEffect(() => {
-    const accepted = localStorage.getItem('termsAccepted')
-    setShowTerms(!accepted)
-  }, [pathname])
-
-  useEffect(() => {
-    const isInstalled =
-      window.matchMedia('(display-mode: standalone)').matches ||
-      (window.navigator as any).standalone
-
-    if (isInstalled) return
+    if (isPWAInstalled()) return
 
     const skipped = localStorage.getItem('installSkipped')
     if (skipped) return
@@ -69,6 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     const handler = (e: any) => {
       e.preventDefault()
       setDeferredPrompt(e)
+      setShowInstall(true)
     }
 
     window.addEventListener('beforeinstallprompt', handler)
@@ -77,17 +51,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       window.removeEventListener('beforeinstallprompt', handler)
     }
   }, [])
-
-  const handleAcceptTerms = () => {
-    localStorage.setItem('termsAccepted', 'true')
-    setShowTerms(false)
-
-    if (deferredPrompt) {
-      setTimeout(() => {
-        setShowInstall(true)
-      }, 400)
-    }
-  }
 
   const handleInstall = async () => {
     if (!deferredPrompt) return
@@ -114,16 +77,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <SplashScreen onFinish={() => setShowSplash(false)} />
   ) : (
     <>
-      <TermsPopup
-        visible={showTerms}
-        onAccept={handleAcceptTerms}
-      />
-
-      <InstallPopup
-        visible={showInstall}
-        onInstall={handleInstall}
-        onSkip={handleSkipInstall}
-      />
+      {!isPWAInstalled() && (
+        <InstallPopup
+          visible={showInstall}
+          onInstall={handleInstall}
+          onSkip={handleSkipInstall}
+        />
+      )}
 
       {children}
     </>

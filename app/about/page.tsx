@@ -29,8 +29,6 @@ export default async function AboutPage() {
         </div>
 
         <div className="font-sans p-3 sm:p-20 pb-10 pt-safe-20">
-          <BlogSection posts={blogPosts} />
-
           <main className="flex flex-col gap-[32px] row-start-2 items-center">
 
             <div className="min-h-screen space-y-4 py-10">
@@ -41,6 +39,8 @@ export default async function AboutPage() {
               <FeaturesSection />
             </div>
           </main>
+
+          <BlogSection posts={blogPosts} />
         </div>
       </div>
 

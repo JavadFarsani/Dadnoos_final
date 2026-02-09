@@ -240,10 +240,10 @@ export default function Sidebar({
                   >
                     <Button
                       variant="ghost"
-                      // onClick={handleNewChatClick}
+                      onClick={handleNewChatClick}
                       className="p-1 rounded-full bg-white dark:bg-black size-full flex items-center justify-center"
                     >
-                      <MessageCircleDashed className="size-5" />
+                      <MessageCircleDashed className="size-6" />
                     </Button>
                   </motion.div>
                 ) : (

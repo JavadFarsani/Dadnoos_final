@@ -141,17 +141,17 @@ export default function SubscriptionGrid({
         </div>
 
         <motion.div
-          className="absolute inset-0 flex items-end justify-end gap-x-1.5 p-5"
+          className="absolute inset-0 flex items-end justify-end font-semibold p-5"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <div className="text-xs flex gap-x-0.5 mb-1.5">
-            <span>{toPersianNumber(effectiveRemainingMessages)}</span>
-            <span className="font-bold">/</span>
-            <span>{toPersianNumber(effectiveMessageQuota)}</span>
+          <div className="flex items-end gap-x-0.5 mb-0.5">
+            <span className="text-xs">{toPersianNumber(effectiveRemainingMessages)}</span>
+            <span className="-mb-1">/</span>
+            <span className="-mb-1">{toPersianNumber(effectiveMessageQuota)}</span>
           </div>
-          <span className="font-semibold">پیام</span>
+          <span className="pr-1">پیام</span>
         </motion.div>
       </div>
 

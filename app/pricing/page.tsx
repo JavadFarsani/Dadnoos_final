@@ -62,7 +62,7 @@ export default function Pricing() {
         </div>
 
         {/* Sticky Tabs */}
-        <div className="sticky top-safe top-0 md:top-20 z-30 w-full max-w-md mb-safe-40 mb-6 md:mt-4">
+        <div className="sticky top-safe top-0 md:top-20 z-30 w-full max-w-md mb-safe-40 mb-6 md:mb-32 md:mt-4">
           <div className="flex gap-1 p-1 rounded-full bg-neutral-400/25 backdrop-blur-md">
             {TABS.map(tab => (
               <button

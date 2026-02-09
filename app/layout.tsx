@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next"
 
 import * as texts from '@/app/_text/common.js'
 
+import { vazirmatn } from "./fonts"
+
 import { cn } from "@/app/_lib/utils"
 
 import RootLayoutClient from "@/app/layoutClient"
@@ -39,7 +41,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <body className={cn('tracking-wide leading-relaxed antialiased')}>
+      <body className={cn('tracking-wide leading-relaxed antialiased', vazirmatn.variable)}>
         <ThemeProvider>
           <PullToRefreshLayout>
             <RootLayoutClient>

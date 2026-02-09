@@ -84,7 +84,7 @@ export function MessageActions({
           )
       )}
 
-      {onPlayAudio && (
+      {/* {onPlayAudio && (
         <Button
           variant="ghost"
           className="h-10 aspect-square p-0 rounded-xl flex items-center justify-center disabled:opacity-15"
@@ -99,7 +99,7 @@ export function MessageActions({
             <AudioLines className="size-5" />
           )}
         </Button>
-      )}
+      )} */}
     </motion.div>
   )
 }

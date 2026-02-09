@@ -135,7 +135,7 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
           </Button>
         </div>
 
-        <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-900/40 p-4 space-y-4">
+        <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-900/40 p-4 pb-0 space-y-4">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-sm text-neutral-500">افزودن و مدیریت پرونده</p>
@@ -161,7 +161,7 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
             </Button>
           </div>
           {sortedCases.length > 0 && (
-            <div className="grid gap-2 max-h-48 overflow-y-auto pr-1">
+            <div className="grid gap-2 max-h-48 overflow-y-auto pr-1 pb-4">
               {sortedCases.map((caseItem) => (
                 <div
                   key={caseItem.id}
@@ -213,7 +213,6 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
         </div>
 
         <div>
-          {/* <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/40 p-4"> */}
           {emptyState ? (
             <div className="rounded-3xl border border-dashed border-neutral-300 dark:border-neutral-600 px-6 py-10 text-center text-sm text-neutral-500">
               هنوز پیامی ذخیره نشده است. روی آیکون ذخیره پیام هوش مصنوعی بزنید تا در اینجا ببینید.
@@ -247,13 +246,13 @@ export function SavedMessagesManager({ isOpen, onClose }: SavedMessagesManagerPr
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[55vh] overflow-y-auto pr-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto px-1">
                 {filteredFiles.map((file) => {
                   const assignedCaseName = file.caseId ? caseMap.get(file.caseId)?.name : undefined
                   return (
                     <div
                       key={file.id}
-                      className="rounded-3xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50/70 dark:bg-neutral-900/50 p-4 flex flex-col gap-3"
+                      className="rounded-3xl bg-neutral-100 dark:bg-neutral-900 p-4 flex flex-col gap-3"
                     >
                       <div className="flex items-center gap-3">
                         <div className="bg-white dark:bg-neutral-800 rounded-2xl p-3 shadow-sm">

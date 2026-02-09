@@ -295,6 +295,7 @@ body {
   padding-bottom: 1.5rem;
   max-width: 100%;
 }
+
 @media (display-mode: standalone) {
   @layer utilities {
     .top-safe {

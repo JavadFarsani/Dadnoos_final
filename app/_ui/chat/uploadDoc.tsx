@@ -27,8 +27,6 @@ export function UploadPanel({
   const imageInputRef = useRef<HTMLInputElement | null>(null)
   const cameraInputRef = useRef<HTMLInputElement | null>(null)
 
-  // const defaultGallery = Array.from({ length: 30 }, (_, i) => `https://picsum.photos/id/${0 + i}/600/600`)
-
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (event.target) event.target.value = ''
@@ -147,31 +145,31 @@ export function UploadPanel({
                     <h3 className="text-sm">دوربین</h3>
                   </div>
                 </Button>
+
+                <div
+                  className={cn(
+                    expanded ? "opacity-0" : "opacity-100",
+                    "transition-all col-span-3 duration-400 overscroll-none -mt-72"
+                  )}
+                >
+                  <div className='grid grid-cols-2 gap-x-5'>
+                    {/* فایل */}
+                    <Button variant="secondary" className="w-full aspect-2/1 rounded-3xl justify-start p-3 h-auto" onClick={() => fileInputRef.current?.click()}>
+                      <div className="flex flex-col items-center mx-auto gap-3">
+                        <h3 className="text-md">تحلیل قرارداد</h3>
+                      </div>
+                    </Button>
+
+                    {/* عکس از گالری */}
+                    <Button variant="secondary" className="w-full aspect-2/1 rounded-3xl justify-start p-3 h-auto" onClick={() => fileInputRef.current?.click()}>
+                      <div className="flex flex-col items-center mx-auto gap-3">
+                        <h3 className="text-md">تحلیل سند</h3>
+                      </div>
+                    </Button>
+                  </div>
+                </div>
               </div>
 
-
-              <div
-                className={cn(
-                  expanded ? "opacity-0" : "opacity-100",
-                  "w-full h-3/4 mt-1.5 overflow-y-auto transition-all duration-400 rounded-3xl overscroll-none"
-                )}
-              >
-                {/* <div className='grid grid-cols-3 gap-1 z-30'>
-                  {defaultGallery.map((src, index) => (
-                    <div className='w-full aspect-square' key={index}>
-                      <img
-                        key={index}
-                        // width={500}
-                        // height={500}
-                        src={src}
-                        className="w-full h-auto object-cover shadow-sm hover:scale-95 active:scale-95 active:shadow-2xl transition-all cursor-pointer"
-                        alt={`Gallery image ${index + 1}`}
-                        onClick={() => handleUploadFromGallery(src)}
-                      />
-                    </div>
-                  ))}
-                </div> */}
-              </div>
 
               {/* hidden inputs */}
               <input

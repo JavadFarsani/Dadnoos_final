@@ -81,9 +81,9 @@ export default function Popup({
               transition: { duration: 0.35, ease: 'easeInOut' },
             }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="relative z-20 w-full max-w-xl bg-white dark:bg-neutral-800 rounded-t-4xl md:rounded-4xl shadow-xl pt-6 px-3 pb-20 md:pb-6"
+            className="relative z-20 w-full max-h-5/6 max-w-xl bg-white dark:bg-neutral-800 rounded-t-4xl md:rounded-4xl shadow-xl pt-6 px-3 pb-20 md:pb-6"
           >
-            <div className="absolute top-1.5 right-1/2 translate-x-1/2 h-1.5 w-[10%] rounded-full bg-neutral-400/25" />
+            <div className="absolute top-1.5 right-1/2 translate-x-1/2 h-1.5 w-[10%] rounded-full bg-neutral-400/25 md:hidden" />
             {children}
           </motion.div>
         </motion.div>

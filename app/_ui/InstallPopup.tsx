@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
 import AcceptButton from "@/app/_ui/components/acceptButton"
 
 type InstallPopupProps = {
@@ -41,14 +40,6 @@ export default function InstallPopup({
               shadow-2xl
             "
           >
-            <Image
-              src="/pwa.png"
-              width={72}
-              height={72}
-              alt="Install App"
-              className="mx-auto mb-6 pointer-events-none"
-            />
-
             <h3 className="text-xl font-bold mb-4">
               نصب دادنوس
             </h3>
@@ -57,7 +48,7 @@ export default function InstallPopup({
               با نصب دادنوس، دسترسی سریع‌تر، تجربه روان‌تر و عملکرد بهتر خواهید داشت.
             </p>
 
-            <div className="flex flex-col gap-3 items-center">
+            <div className="flex flex-col gap-3 md:gap-5 items-center pb-4">
               <AcceptButton
                 message="نصب برنامه"
                 onAccept={onInstall}
@@ -65,7 +56,7 @@ export default function InstallPopup({
 
               <button
                 onClick={onSkip}
-                className="text-xs text-neutral-400 hover:text-neutral-300 transition"
+                className="text-xs text-neutral-400 hover:text-neutral-300 transition cursor-pointer"
               >
                 فعلاً نه
               </button>
