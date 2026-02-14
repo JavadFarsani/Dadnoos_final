@@ -1,18 +1,14 @@
-name: CI/CD - Deploy Dadnoos
+name: Deploy Dadnoos
 
 on:
   push:
     branches: ["main"]
 
-concurrency:
-  group: dadnoos-deploy
-  cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to server via SSH
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -23,13 +19,8 @@ jobs:
           script: |
             set -euo pipefail
 
-            DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
-            if [ -z "${DEPLOY_PATH:-}" ]; then
-              DEPLOY_PATH="/opt/dadnoos"
-            fi
-
-            echo "==> Go to deploy path: ${DEPLOY_PATH}"
-            cd "${DEPLOY_PATH}"
+            echo "==> Go to /opt/dadnoos"
+            cd /opt/dadnoos
 
             echo "==> Fetch & reset to origin/main"
             git fetch --all
