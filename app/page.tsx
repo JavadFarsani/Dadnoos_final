@@ -12,8 +12,6 @@ import { useUserStore } from "@/app/_lib/hooks/store"
 import { useChat } from "@/app/_lib/hooks/useChat"
 
 import Navbar from "@/app/_ui/navbar"
-import PWAIphoneGuide from "@/app/_ui/InstallPwaDialog"
-import PwaInstallBanner from "@/app/_ui/pwaInstallBanner"
 
 const typingAnimationQueries: string[] = [
   'تنظیم قرارداد خرید و فروش ملک چگونه است؟',
