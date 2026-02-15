@@ -148,7 +148,7 @@ export default function PromptManager({ initialPrompts }: { initialPrompts: Prom
   return (
     <div className="space-y-6">
       <div className="overflow-x-auto rounded-3xl border border-neutral-200/70 bg-white/90 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/40">
-        <table className="min-w-full divide-y divide-neutral-200/70 text-sm">
+        <table className="min-w-full divide-y divide-neutral-400/25 text-sm">
           <thead className="bg-neutral-50/90 text-neutral-500 dark:bg-neutral-900/60">
             <tr>
               <th className="px-4 py-3 text-right font-medium">عنوان</th>

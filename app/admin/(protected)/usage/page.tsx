@@ -26,7 +26,7 @@ function UsageTable({
     <div className="space-y-3 rounded-3xl border border-neutral-200/60 p-6 shadow-sm dark:border-neutral-800">
       <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{title}</h3>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-full divide-y divide-neutral-200/60 text-sm">
+        <table className="w-full min-w-full divide-y divide-neutral-400/50 text-sm">
           <thead className="bg-neutral-50/60 text-neutral-500 dark:bg-neutral-900/40">
             <tr>
               <th className="px-4 py-3 text-right font-medium">گروه</th>
@@ -46,7 +46,7 @@ function UsageTable({
             ))}
             {!rows.length && (
               <tr>
-                <td colSpan={4} className="px-4 py-4 text-center text-neutral-500">
+                <td colSpan={4} className="px-4 py-10 text-center text-neutral-500">
                   داده‌ای برای نمایش وجود ندارد.
                 </td>
               </tr>
@@ -94,23 +94,23 @@ export default async function AdminUsagePage({ searchParams }: UsagePageProps) {
   return (
     <section className="space-y-8">
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-neutral-500">پایش مصرف</p>
-        <h1 className="text-3xl font-semibold text-neutral-900 dark:text-neutral-100">گزارش مصرف توکن</h1>
+        <p className="text-sm text-neutral-400">پایش مصرف</p>
+        <h1 className="text-3xl font-semibold">گزارش مصرف توکن</h1>
       </div>
 
       <form className="grid gap-4 rounded-3xl border border-neutral-200/60 p-6 text-sm shadow-sm dark:border-neutral-800" method="get">
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="text-sm text-neutral-500">از تاریخ</label>
-            <Input type="date" name="from" defaultValue={fromDate.toISOString().slice(0, 10)} />
+            <label className="text-sm text-neutral-400">از تاریخ</label>
+            <Input className='h-12 appearance-none' type="date" name="from" defaultValue={fromDate.toISOString().slice(0, 10)} />
           </div>
           <div>
-            <label className="text-sm text-neutral-500">تا تاریخ</label>
-            <Input type="date" name="to" defaultValue={toDate.toISOString().slice(0, 10)} />
+            <label className="text-sm text-neutral-400">تا تاریخ</label>
+            <Input className='h-12 appearance-none' type="date" name="to" defaultValue={toDate.toISOString().slice(0, 10)} />
           </div>
         </div>
-        <div className="flex justify-end">
-          <Button type="submit" className="px-8">
+        <div className="flex justify-start">
+          <Button type="submit" className="px-8 rounded-full">
             بروزرسانی
           </Button>
         </div>
