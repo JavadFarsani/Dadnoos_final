@@ -28,6 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'وبلاگ', href: '/admin/blogs' },
   { label: 'پرامپت‌ها', href: '/admin/prompts' },
   { label: 'پشتیبانی', href: '/admin/support' },
+  { label: 'ایده‌ها و نظرات', href: '/admin/feedback' },
   { label: 'رویدادها', href: '/admin/events' },
   { label: 'گزارش بازرسی', href: '/admin/audit-logs' },
 ]

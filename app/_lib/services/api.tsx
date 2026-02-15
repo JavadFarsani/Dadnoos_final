@@ -118,6 +118,16 @@ export interface VoiceLiveChunkResponse {
   }
 }
 
+export interface FeedbackPayload {
+  title: string
+  message: string
+  type: 'idea' | 'report'
+}
+
+export interface FeedbackResponse {
+  id: string
+}
+
 export class ApiError extends Error {
   status: number
   data?: any
@@ -380,6 +390,13 @@ class ApiService {
   async getPayments(): Promise<{ payments: PaymentRecord[] }> {
     return this.request<{ payments: PaymentRecord[] }>('/api/billing/payments', {
       method: 'GET',
+    })
+  }
+
+  async submitFeedback(payload: FeedbackPayload): Promise<FeedbackResponse> {
+    return this.request<FeedbackResponse>('/api/v1/feedback', {
+      method: 'POST',
+      body: JSON.stringify(payload),
     })
   }
 
